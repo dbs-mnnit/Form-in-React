@@ -30,6 +30,20 @@ function Form() {
         ...prevData,
         [name]: files[0],
       }));
+    } else if(type === 'reset'){
+      setFormData(prevData => ({
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        emailAddress: '',
+        contact: '',
+        gender: '',
+        bestSubject: [],
+        resume: null,
+        url: '',
+        about: '',
+        choice: ''
+      }));
     } else {
       setFormData(prevData => ({
         ...prevData,
@@ -94,7 +108,7 @@ function Form() {
       <input type="text" id='about' name='about' value={formData.about} placeholder='Enter About Yourself' onChange={handleChange} /><br/>
 
       
-      <input type="reset" id='reset' value="RESET" />
+      <input type="reset" id='reset' value="RESET" onClick={handleChange}/>
       <input type="submit" id='submit' value="SUBMIT" />
     </form>
   );
