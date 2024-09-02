@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './Form.css';
-
-function Form() {
-  const [formData, setFormData] = useState({
+const emptyForm = {
     firstName: '',
     middleName: '',
     lastName: '',
@@ -14,39 +12,30 @@ function Form() {
     url: '',
     about: '',
     choice: '',
-  });
+}
+function Form() {
+  const [formData, setFormData] = useState(emptyForm);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
+    
     if (type === 'checkbox') {
-      setFormData(prevData => ({
-        ...prevData,
+      setFormData(formData => ({
+        ...formData,
         bestSubject: checked
-          ? [...prevData.bestSubject, value]
-          : prevData.bestSubject.filter(subject => subject !== value),
+          ? [...formData.bestSubject, value]
+          : formData.bestSubject.filter(subject => subject !== value),
       }));
     } else if (type === 'file') {
-      setFormData(prevData => ({
-        ...prevData,
+      setFormData(formData => ({
+        ...formData,
         [name]: files[0],
       }));
     } else if(type === 'reset'){
-      setFormData(prevData => ({
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        emailAddress: '',
-        contact: '',
-        gender: '',
-        bestSubject: [],
-        resume: null,
-        url: '',
-        about: '',
-        choice: ''
-      }));
+      setFormData(formData => emptyForm);
     } else {
-      setFormData(prevData => ({
-        ...prevData,
+      setFormData(formData => ({
+        ...formData,
         [name]: value,
       }));
     }
@@ -71,11 +60,11 @@ function Form() {
 
       <label htmlFor="gender">Gender<span>*</span></label><br/>
       <div className="gender-group">
-        <input type="radio" name="gender" id="male" value='Male' checked={formData.gender === 'Male'} onChange={handleChange} />
+        <input type="radio" name="gender" id="gender" value='Male' checked={formData.gender === 'Male'} onChange={handleChange} />
         <label htmlFor="male">Male</label>
-        <input type="radio" name="gender" id="female" value='Female' checked={formData.gender === 'Female'} onChange={handleChange} />
+        <input type="radio" name="gender" id="gender" value='Female' checked={formData.gender === 'Female'} onChange={handleChange} />
         <label htmlFor="female">Female</label>
-        <input type="radio" name="gender" id="other" value='Other' checked={formData.gender === 'Other'} onChange={handleChange} />
+        <input type="radio" name="gender" id="gender" value='Other' checked={formData.gender === 'Other'} onChange={handleChange} />
         <label htmlFor="other">Other</label>
       </div><br/>
 
